@@ -279,6 +279,8 @@ int main(int argc, char *argv[])
         vymBaseDir.cd("Resources");
 #elif defined(Q_OS_WINDOWS)
         vymBaseDir.setPath(QCoreApplication::applicationDirPath());
+#elif defined(__EMSCRIPTEN__)
+    vymBaseDir.setPath(":/");
 #else
         vymBaseDir.setPath(VYMBASEDIR);
 #endif
@@ -368,7 +370,7 @@ int main(int argc, char *argv[])
                 "Please get vym from\n"
                 " * https://sourceforge.net/projects/vym/  or \n"
                 " * https://software.opensuse.org//download.html?project=home%3Ainsilmaril&package=vym");
-        warn.exec();
+        warn.open();
     } else {
         QTranslator vymTranslator;
         if (!vymTranslator.load(QString("vym.%1").arg(localeName), vymTranslationsDir.path())) {
@@ -379,7 +381,7 @@ int main(int argc, char *argv[])
                     .arg(localeName)
                     .arg(vymTranslationsDir.path()));
             warn.setShowAgainName("mainwindow/translations/localeMissing");
-            warn.exec();
+            warn.open();
         }
         app.installTranslator(&vymTranslator);
     }
@@ -512,7 +514,7 @@ int main(int argc, char *argv[])
     // Enable some last minute cleanup
     QObject::connect(&app, SIGNAL(lastWindowClosed()), &app, SLOT(quit()));
 
-    app.exec();
+    app.exec(); //TODO:?
 
     // Cleanup
     delete noteEditor;

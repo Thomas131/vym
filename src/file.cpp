@@ -235,6 +235,8 @@ bool checkZipTool()
 #if defined(Q_OS_WINDOWS)
     if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows10)
         zipToolAvailable = true;
+#elif defined(__EMSCRIPTEN__)
+    zipToolAvailable = true; // we ship our own zip
 #else
 
     QFile tool(zipToolPath);
@@ -250,6 +252,8 @@ bool checkUnzipTool()
 #if defined(Q_OS_WINDOWS)
     if (QOperatingSystemVersion::current() >= QOperatingSystemVersion::Windows10)
         zipToolAvailable = true;
+#elif defined(__EMSCRIPTEN__)
+    unzipToolAvailable = true; // we ship our own zip
 #else
     QFile tool(unzipToolPath);
 

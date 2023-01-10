@@ -10,9 +10,10 @@ extern QDir vymBaseDir;
 
 QString Macros::getPath()
 {
-    return settings
-        .value("/macros/path", vymBaseDir.path() + "/macros/macros.vys")
-        .toString();
+    return ":/macros.vys";
+/*    return settings
+        .value("/macros/path", ":/macros.vys")
+        .toString();*/
 }
 
 QString Macros::get()

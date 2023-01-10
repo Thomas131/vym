@@ -18,13 +18,13 @@ QT += widgets
 
 RESOURCES = vym.qrc
 
-#unix:!macx:isEmpty(NO_DBUS) {
-#    message("Compiling with DBUS")
-#    DEFINES += VYM_DBUS
-#    QT      += dbus 
-#    HEADERS += src/adaptormodel.h src/adaptorvym.h 
-#    SOURCES += src/adaptormodel.cpp src/adaptorvym.cpp 
-#}
+unix:!wasm:!macx:isEmpty(NO_DBUS) {
+    message("Compiling with DBUS")
+    DEFINES += VYM_DBUS
+    QT      += dbus 
+    HEADERS += src/adaptormodel.h src/adaptorvym.h 
+    SOURCES += src/adaptormodel.cpp src/adaptorvym.cpp 
+}
 
 win32 {
     message("Compiling with win32")
@@ -323,7 +323,9 @@ isEmpty( DATADIR ) {
 target.path = $${BINDIR}
 INSTALLS += target
 
-DEFINES += "VYMBASEDIR='\"$${DATADIR}\"'"
+!wasm {
+    DEFINES += "VYMBASEDIR='\"$${DATADIR}\"'"
+}
 
 message( "PREFIX Dir: $$PREFIX" )
 message( "DATADIR: $$DATADIR" )
