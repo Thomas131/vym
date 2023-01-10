@@ -16,7 +16,9 @@ using namespace std;
 #include <QInputDialog>
 #include <QMenuBar>
 #include <QScriptEngine>
+#ifndef __EMSCRIPTEN__
 #include <QSslSocket>
+#endif
 #include <QStatusBar>
 #include <QTextStream>
 
@@ -5994,6 +5996,8 @@ void Main::settingsToggleDownloads() { downloadsEnabled(true); }
 
 bool Main::settingsConfluence()
 {
+//TODO
+#ifndef __EMSCRIPTEN__
     if (!QSslSocket::supportsSsl())
     {
         QMessageBox::warning(
@@ -6002,6 +6006,7 @@ bool Main::settingsConfluence()
         debugInfo();
         return false;
     }
+#endif
 
     CredentialsDialog dia;
     dia.setURL(
@@ -6032,6 +6037,8 @@ bool Main::settingsConfluence()
 
 bool Main::settingsJIRA()
 {
+//TODO
+#ifndef __EMSCRIPTEN__
     if (!QSslSocket::supportsSsl())
     {
         QMessageBox::warning(
@@ -6040,13 +6047,13 @@ bool Main::settingsJIRA()
         debugInfo();
         return false;
     }
-
-    JiraSettingsDialog dia;
+#endif
+/*    JiraSettingsDialog dia;
     dia.exec();
 
     if (dia.result() > 0)
         return true;
-    else
+    else*/
         return false;
 }
 
@@ -6944,7 +6951,6 @@ void Main::helpMacros()
     dia.exec();
 }
 
-#include <QSslSocket>
 void Main::debugInfo()
 {
     QString s;
@@ -6960,9 +6966,14 @@ void Main::debugInfo()
             .arg(QCoreApplication::applicationDirPath());
     s += QString("   Settings: %1\n").arg(settings.fileName());
     s += " SSL status: ";
+//TODO
+#ifndef __EMSCRIPTEN__
     QSslSocket::supportsSsl() ? s += "supported\n" : s += "not supported\n";
     s += "     SSL Qt: " + QSslSocket::sslLibraryBuildVersionString() + "\n";
     s += "    SSL lib: " + QSslSocket::sslLibraryVersionString() + "\n";
+#else
+    s += "unknown";
+#endif
 
     // Info about translations
     QStringList translations;

@@ -1,7 +1,9 @@
 #include "confluence-agent.h"
 
 #include <QMessageBox>
+#ifndef __EMSCRIPTEN__
 #include <QSslSocket>
+#endif
 
 #include "branchitem.h"
 #include "confluence-user.h"
@@ -17,9 +19,12 @@ extern Settings settings;
 extern bool debug;
 
 bool ConfluenceAgent::available() 
-{ 
+{
+//TODO
+#ifndef __EMSCRIPTEN__
     if (!QSslSocket::supportsSsl())
         return false;
+#endif
     if ( settings.value("/atlassian/confluence/username", "").toString().isEmpty())
         return false;
 

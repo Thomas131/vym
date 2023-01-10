@@ -6,7 +6,9 @@
 
 #include <QHash>
 #include <QMessageBox>
+#ifndef __EMSCRIPTEN__
 #include <QSslSocket>
+#endif
 
 extern Main *mainWindow;
 extern QDir vymBaseDir;
@@ -17,8 +19,11 @@ extern bool debug;
 
 bool JiraAgent::available()
 {
+//TODO
+#ifndef __EMSCRIPTEN__
     if (!QSslSocket::supportsSsl())
         return false;
+#endif
     if ( settings.value("/atlassian/jira/username", "").toString().isEmpty())
         return false;
     if ( settings.value("/atlassian/jira/servers/size", 0).toInt() < 1)

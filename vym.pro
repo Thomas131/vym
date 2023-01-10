@@ -2,7 +2,8 @@ TARGET	    = vym
 TEMPLATE    = app
 LANGUAGE    = C++
 
-CONFIG	+= qt warn_on x86_64 
+CONFIG	+= qt warn_on c++11
+#TODO x86_64 
 
 QMAKE_MAC_SDK = macosx10.10
 
@@ -17,13 +18,13 @@ QT += widgets
 
 RESOURCES = vym.qrc
 
-unix:!macx:isEmpty(NO_DBUS) {
-    message("Compiling with DBUS")
-    DEFINES += VYM_DBUS
-    QT      += dbus 
-    HEADERS += src/adaptormodel.h src/adaptorvym.h 
-    SOURCES += src/adaptormodel.cpp src/adaptorvym.cpp 
-}
+#unix:!macx:isEmpty(NO_DBUS) {
+#    message("Compiling with DBUS")
+#    DEFINES += VYM_DBUS
+#    QT      += dbus 
+#    HEADERS += src/adaptormodel.h src/adaptorvym.h 
+#    SOURCES += src/adaptormodel.cpp src/adaptorvym.cpp 
+#}
 
 win32 {
     message("Compiling with win32")
@@ -233,6 +234,7 @@ SOURCES	+= \
     src/imageobj.cpp \
     src/imports.cpp \
     src/jira-agent.cpp \
+#    src/jira-settings-dialog.cpp \
     src/lineeditdialog.cpp \
     src/linkablemapobj.cpp \
     src/lockedfiledialog.cpp \
@@ -296,6 +298,7 @@ FORMS = \
     forms/extrainfodialog.ui \
     forms/editxlinkdialog.ui \
     forms/historywindow.ui \
+#    forms/jira-settings-dialog.ui \
     forms/lineeditdialog.ui \
     forms/lockedfiledialog.ui \
     forms/scripteditor.ui \

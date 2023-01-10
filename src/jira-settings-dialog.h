@@ -1,4 +1,5 @@
-#ifndef JIRA_SETTINGS_DIALOG_H
+#if 0
+//#ifndef JIRA_SETTINGS_DIALOG_H
 #define JIRA_SETTINGS_DIALOG_H
 
 #include "ui_jira-settings-dialog.h"

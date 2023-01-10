@@ -3,6 +3,7 @@
 
 #include "ui_confluence-userdialog.h"
 
+#include "confluence-user.h"
 #include <QStringList>
 
 class ConfluenceUser;
